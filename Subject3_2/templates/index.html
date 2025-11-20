@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Team | open4u{% endblock %}
+{% block content %}
+
+<!-- 팀명 소개 섹션 -->
+<section class="hero">
+  <h2>Introduce Our Team</h2>
+  <h1 class="main-title">open4u</h1>
+  <p class="subtitle">오픈소스(Open Source), 네 명의 팀원(4), 그리고 당신을 위한(For You)</p>
+
+  <div class="dots">
+    <span>.</span><br>
+    <span>.</span><br>
+    <span>.</span>
+  </div>
+  
+  <div class="desc">
+    <p>이 세 가지 의미를 담아 open4u라는 이름을 선택했습니다.</p>
+    <p>우리는 모두가 함께 배우고 성장할 수 있는 오픈소스 정신을 바탕으로,</p>
+    <p>각자의 개성과 역량을 모아 세상을 조금 더 열린(Open) 방향으로 바꾸고자 합니다.</p>
+    <p>오픈소스의 가치와 네 명의 팀워크로 세상을 여는 open4u,</p>
+    <p>네잎클로버처럼 희망·믿음·사랑·행운을 품고,</p>
+    <p>모두에게 열린 기술을 만들어갑니다.</p>
+  </div>
+
+  <img src="{{ url_for('static', filename='img/clover.png') }}" alt="clover" class="clover" />
+</section>
+
+
+<!-- 팀 섹션  -->
+<section class="team">
+  <h2>Introduce</h2> 
+  <h1>Our Team Member</h1>
+  <div class="team-grid">
+
+    {% for m in members %}
+    <a class="card" href="{{ url_for('member_detail', username=m.github_username) }}">
+      <div class="card-header">
+        <span class="member-name">{{ m.name }}</span>
+        <span class="member-role">{{ m.role | join(', ') }}</span>
+      </div>
+      <img src="{{ url_for('static', filename='img/' ~ m.image) }}" alt="{{ m.name }}">
+    </a>
+    {% endfor %}
+
+  </div>
+</section>
+
+
+<!--  비하인드 영상  -->
+<section class="behind">
+  <h3>Together, We Build</h3>
+  <h2>Behind the Scenes of Open4U</h2>
+  <div class="video-container">
+    <video
+      class="behind-video"
+      controls
+      preload="metadata"
+      playsinline
+      poster="{{ url_for('static', filename='img/behind_poster.jpg') }}">
+      <source src="{{ url_for('static', filename='video/behindthescenes.mp4') }}" type="video/mp4">
+      브라우저가 동영상을 지원하지 않아요.
+      <a href="{{ url_for('static', filename='video/behindthescenes.mp4') }}">영상 다운로드</a>
+    </video>
+  </div>
+</section>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,140 @@
+{
+  "members": [
+    {
+      "name": "어수빈",
+      "english_name": "Eo Subin",
+      "intro": "데이터를 가치로 만드는 데이터 엔지니어 & 기획자",
+      "role": [
+        "Team Leader",
+        "Frontend"
+      ],
+      "major": [
+        "경영정보학과",
+        "융합소프트웨어"
+      ],
+      "image": "memozi_subin.png",
+      "phone": "010-2464-1111",
+      "email": "esbXX@naver.com",
+      "github_username": "EoSubin",
+      "github_profile": "https://github.com/EoSubin",
+      "portfolio_link": "https://www.notion.so/21d76a1a245780baa99aeededf5745ab?v=21d76a1a245781339f7c000c2786dd6c&source=copy_link",
+      "portfolio_file": "subin_portfolio.pdf",
+      "portfolio": [
+        {
+          "project_title": "제 5회 KOPIS 빅데이터 공모전 서비스 개발 부문",
+          "period": "2025.07–2025.09",
+          "role": "데이터 엔지니어",
+          "description": "데이터 모델링을 담당해 45GB 데이터 처리하여 시계열 분석/예측을 하였으며, 본선까지 진출하였습니다."
+        },
+        {
+          "project_title": "제7회 서울교육 데이터 활용 아이디어 공모전",
+          "period": "2025.05–2025.07",
+          "role": "데이터 엔지니어",
+          "description": "데이터 모델링 역할을 맡아 공공데이터 수집부터 정제, 모델링 파이프라인 설계 및 구현 후, 인사이트를 도출하였으며 우수상을 수상했습니다."
+        },
+        {
+          "project_title": "날씨 맞춤 옷 추천 웹 서비스",
+          "period": "2024.11–2024.12",
+          "role": "프론트엔드 개발자",
+          "description": "서비스를 기획하고, 프론트엔드 역할을 맡아 UI 디자인 설계부터 구현까지 진행했습니다."
+        }
+      ]
+    },
+    {
+      "name": "김유라",
+      "english_name": "Kim Yura",
+      "intro": "데이터를 통해 세상을 읽는 분석가",
+      "role": [
+        "Frontend"
+      ],
+      "major": [
+        "통계학과"
+      ],
+      "image": "memozi_yura.png",
+      "phone": "010-9396-1111",
+      "email": "yura45XX@gmail.com",
+      "github_username": "kimyuraa",
+      "github_profile": "https://github.com/kimyuraa",
+      "portfolio_link": "",
+      "portfolio_file": "",
+      "portfolio": [
+        {
+          "project_title": "2025 신용회복위원회 대학(원)생 아이디어 공모전",
+          "period": "2025.09–2025.10",
+          "role": "데이터 분석 및 기획",
+          "description": "공공데이터와 이용자 통계자료를 분석하여 채무조정 신청 단계별 이탈 요인을 도출하고, 이를 기반으로 사용자 맞춤형 상담 시스템 개선안을 기획했습니다."
+        },
+        {
+          "project_title": "딥페이크 범죄 인식 공익 광고 제안서",
+          "period": "2024.11–2024.12",
+          "role": "데이터 분석 및 기획",
+          "description": "온라인 커뮤니티·SNS 게시물 약 3,000건을 수집·분석하여 딥페이크 범죄 인식 수준과 감정 반응 패턴을 도출, 해당 인사이트를 기반으로 숏폼 광고 시나리오 및 메시지 구조를 설계했습니다."
+        }
+      ]
+    },
+    {
+      "name": "민지원",
+      "english_name": "Min Jiwon",
+      "intro": "데이터에서 인사이트를 발견하는 데이터 기획자",
+      "role": [
+        "Backend"
+      ],
+      "major": [
+        "산업시스템공학과"
+      ],
+      "image": "memozi_jiwon.png",
+      "phone": "010-8812-0000",
+      "email": "zliyXX@gmail.com",
+      "github_username": "jiwon-m",
+      "github_profile": "https://github.com/jiwon-m",
+      "portfolio_link": "",
+      "portfolio_file": "",
+      "portfolio": [
+        {
+          "project_title": "헬퍼잇 고객 리텐션 및 UI 개선 기획",
+          "period": "2025.06–2025.11",
+          "role": "데이터 분석 및 서비스 기획",
+          "description": "고객 CRM과 로그 데이터를 분석해 사용자 행동 패턴을 파악하고, 앱 내 UI 개선 및 개인화 추천 기능을 기획한 데이터 기반 서비스 기획 프로젝트."
+        },
+        {
+          "project_title": "카카오T ‘지금 여기’ 바이럴 마케팅 전략 기획",
+          "period": "2025.01–2025.03",
+          "role": "마케팅 전략 기획 및 데이터 분석",
+          "description": "신규 위치 기반 서비스의 인지도 제고를 위해 사용자 행동 데이터를 분석하고, 숏폼 영상 중심의 바이럴 캠페인을 기획·운영한 프로젝트."
+        },
+        {
+          "project_title": "BDA WAVE 학회원 참여 플랫폼 기획",
+          "period": "2025.06–2025.11",
+          "role": "서비스 기획 및 백엔드 개발",
+          "description": "학회원 1,000명의 의견 데이터를 분석해 핵심 만족 요인을 도출하고, 네트워킹·공모전·리워드 시스템을 기획한 학회 내 서비스 개선 프로젝트."
+        }
+      ]
+    },
+    {
+      "name": "장소은",
+      "english_name": "Jang Soeun",
+      "intro": "소비자의 마음을 읽는 CRM 마케터",
+      "role": [
+        "Backend"
+      ],
+      "major": [
+        "산업시스템공학과"
+      ],
+      "image": "memozi_soeun.png",
+      "phone": "010-8721-0000",
+      "email": "soeunkp10XX@gmail.com",
+      "github_username": "wkdthdms1030",
+      "github_profile": "https://github.com/wkdthdms1030",
+      "portfolio_link": "",
+      "portfolio_file": "",
+      "portfolio": [
+        {
+          "project_title": "유튜브/틱톡 기반 편의점 신제품 VoC 분석 대시보드",
+          "period": "2025.03–2025.06",
+          "role": "데이터 수집 및 모델 선정",
+          "description": "출시주기가 짧아 빠른 피드백이 필요한 편의점 간식들을 대상으로, 온라인 VoC 데이터를 수집·분석하여 반응을 시각화하는 대시보드를 제작했습니다."
+        }
+      ]
+    }
+  ]
+}

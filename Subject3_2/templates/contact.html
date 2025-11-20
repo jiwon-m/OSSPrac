@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Contact | open4u{% endblock %}
+
+{% block content %}
+<section class="contact">
+  <h2>Emergency Contact</h2>
+  <h1>팀원 비상 연락망</h1>
+
+  <div class="table-container">
+    <table class="contact-table">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>전화번호</th>
+          <th>이메일</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in members %}
+        <tr>
+          <td>{{ m.name }}</td>
+          <td>{{ m.phone }}</td>
+          <td><a href="mailto:{{ m.email }}">{{ m.email }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

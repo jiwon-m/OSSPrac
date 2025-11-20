@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    image: eosubin/team-intro-web:latest
+    ports:
+      - "8000:8000"

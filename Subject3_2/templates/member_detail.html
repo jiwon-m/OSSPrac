@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}{{ member.name }} | open4u{% endblock %}
+
+{% block content %}
+<section class="member-detail">
+
+  <div class="member-header">
+    <div class="member-photo">
+      <img src="{{ url_for('static', filename='img/' ~ member.image) }}" alt="{{ member.name }}">
+    </div>
+
+    <p class="member-intro">{{ member.intro }}</p>
+
+    <div class="member-main-info">
+      
+      <div class="member-main-content"> 
+        
+        <div class="name-card">
+          <p class="member-eng-name">{{ member.english_name }}</p>
+          <h2 class="member-kor-name">{{ member.name }}</h2>
+        </div>
+
+        <ul class="member-meta">
+          {% if member.role %}
+          <li>
+            <span class="icon icon-role"></span>
+            <span>{{ member.role | join(', ') }}</span>
+          </li>
+          {% endif %}
+
+          {% if member.major %}
+          <li>
+            <span class="icon icon-major"></span>
+            <span>{{ member.major | join(', ') }}</span>
+          </li>
+          {% endif %}
+
+          {% if member.phone %}
+          <li>
+            <span class="icon icon-phone"></span>
+            <span>{{ member.phone }}</span>
+          </li>
+          {% endif %}
+
+          {% if member.email %}
+          <li>
+            <span class="icon icon-email"></span>
+            <a href="mailto:{{ member.email }}">{{ member.email }}</a>
+          </li>
+          {% endif %}
+
+          {% if member.github_profile %}
+          <li>
+            <span class="icon icon-github"></span>
+            <a href="{{ member.github_profile }}" target="_blank">
+              {{ member.github_username }}
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="detail-buttons">
+        <a class="btn-edit"
+           href="{{ url_for('input_page', username=member.github_username) }}">
+          수정
+        </a>
+        <a class="btn-back" href="{{ url_for('result') }}">목록으로</a>
+      </div>
+
+    </div>
+  </div>
+
+  {% if member.portfolio and member.portfolio|length > 0 %}
+  <section class="member-portfolio">
+    <!--Portfolio 제목 + 액션 아이콘 -->
+    <div class="portfolio-title">
+      <h3>Portfolio</h3>
+
+      <div class="portfolio-actions">
+        <!--링크 아이콘 -->
+        <a
+          href="{{ member.portfolio_link or '#' }}"
+          target="_blank"
+          rel="noopener"
+          class="pf-action"
+          aria-label="포트폴리오 링크 열기"
+          title="포트폴리오 링크 열기"
+          onclick="if('{{ member.portfolio_link }}' === '') { alert('링크가 존재하지 않습니다.'); return false; }"
+        >
+          <img src="{{ url_for('static', filename='icons/link.png') }}" alt="link icon">
+        </a>
+
+        <!--다운로드 아이콘 -->
+        <a
+          href="{{ url_for('static', filename='files/' ~ member.portfolio_file) if member.portfolio_file else '#' }}"
+          class="pf-action pf-action--file"
+          aria-label="포트폴리오 파일 다운로드"
+          title="포트폴리오 파일 다운로드"
+          onclick="if('{{ member.portfolio_file }}' === '') { alert('파일이 존재하지 않습니다.'); return false; }"
+          {% if member.portfolio_file %} download {% endif %}
+        >
+          <img src="{{ url_for('static', filename='icons/file_download.png') }}" alt="download icon">
+        </a>
+      </div>
+    </div>
+
+
+    <table class="portfolio-table">
+      <thead>
+        <tr>
+          <th>프로젝트명</th>
+          <th>기간</th>
+          <th>역할</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in member.portfolio %}
+        <tr>
+          <td>{{ p.project_title }}</td>
+          <td>{{ p.period }}</td>
+          <td>{{ p.role }}</td>
+          <td>{{ p.description }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+
+</section>
+{% endblock %}

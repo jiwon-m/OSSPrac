@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Member | open4u{% endblock %}
+
+{% block content %}
+<section class="team">
+  <h2>Introduce</h2>
+  <h1>Our Team Member</h1>
+
+  <div class="team-grid">
+    {% for m in members %}
+    <a class="card" href="{{ url_for('member_detail', username=m.github_username) }}">
+      <div class="card-header">
+        <span class="member-name">{{ m.name }}</span>
+        <span class="member-role">{{ m.role | join(', ') }}</span>
+      </div>
+      <img src="{{ url_for('static', filename='img/' ~ m.image) }}" alt="{{ m.name }}">
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

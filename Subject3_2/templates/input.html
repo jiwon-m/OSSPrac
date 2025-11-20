@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Add Member' if is_new else 'Edit Member' }} | open4u{% endblock %}
+
+{% block content %}
+<section class="edit-member">
+  <h2>{{ '멤버 정보 입력' if is_new else '멤버 정보 수정' }}</h2>
+
+  <form method="POST" action="{{ url_for('update_member') }}" enctype="multipart/form-data">
+    {% if not is_new and member %}
+      <input type="hidden" name="github_username" value="{{ member.github_username }}"/>
+    {% endif %}
+
+    <label>이름
+      <input type="text" name="name" value="{{ member.name if member else '' }}">
+    </label>
+
+    <label>영어 이름
+      <input type="text" name="english_name" value="{{ member.english_name if member else '' }}">
+    </label>
+
+    <label>한줄 소개
+      <input type="text" name="intro" value="{{ member.intro if member else '' }}">
+    </label>
+
+    <div class="field-group">
+      <label>역할</label>
+      {% set roles = (member.role if (member and member.role is iterable and member.role is not string) else []) %}
+      <div class="checkbox-group">
+        <label class="checkbox">
+          <input type="checkbox" name="role[]" value="Team Leader" {% if 'Team Leader' in roles %}checked{% endif %}>
+          <span>Team Leader</span>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="role[]" value="Frontend" {% if 'Frontend' in roles %}checked{% endif %}>
+          <span>Frontend</span>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="role[]" value="Backend" {% if 'Backend' in roles %}checked{% endif %}>
+          <span>Backend</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>전공</label>
+      <div id="majorList">
+        {% set majors = (member.major if (member and member.major is iterable and member.major is not string) else []) %}
+        {% if majors %}
+          {% for m in majors %}
+            <div class="row">
+              <input type="text" name="major[]" value="{{ m }}">
+              <button type="button" class="btn-mini" onclick="this.parentNode.remove()">삭제</button>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="row">
+            <input type="text" name="major[]" placeholder="예: 융합소프트웨어">
+            <button type="button" class="btn-mini" onclick="this.parentNode.remove()">삭제</button>
+          </div>
+        {% endif %}
+      </div>
+      <button type="button" class="btn-mini" onclick="addRow('majorList','major[]')">+ 추가</button>
+    </div>
+
+    <label>전화번호
+      <input type="text" name="phone" value="{{ member.phone if member else '' }}">
+    </label>
+
+    <label>이메일
+      <input type="email" name="email" value="{{ member.email if member else '' }}">
+    </label>
+
+    <label>GitHub Username
+      {% if is_new %}
+        <input type="text" name="github_username_new" placeholder="GitHub Username" required>
+      {% else %}
+        <input type="text" name="github_username_view" value="{{ member.github_username }}" disabled>
+      {% endif %}
+    </label>
+
+    <div class="field-group">
+      <label>포트폴리오 링크
+        <input type="url" name="portfolio_link" value="{{ member.portfolio_link if member else '' }}" placeholder="https://...">
+      </label>
+    </div>
+
+    <div class="field-group">
+      <label>포트폴리오 파일 (PDF, PPTX 등)</label>
+
+      {% if not is_new and member and member.portfolio_file %}
+        <div class="current-file">
+          현재 파일:
+          <a href="{{ url_for('static', filename='files/' ~ member.portfolio_file) }}" target="_blank" download>
+            {{ member.portfolio_file }}
+          </a>
+          <input type="hidden" name="portfolio_file_old" value="{{ member.portfolio_file }}">
+          <label class="checkbox-inline"><input type="checkbox" name="remove_portfolio_file" value="1">이 파일 삭제</label>
+        </div>
+      {% else %}
+        <p class="muted">현재 저장된 파일 없음</p>
+      {% endif %}
+
+      <input type="file" name="portfolio_upload" accept=".pdf,.ppt,.pptx,.doc,.docx,.zip">
+      <p class="hint">※ 새 파일을 업로드하면 기존 파일을 교체합니다.</p>
+    </div>
+
+    <div class="field-group">
+      <label>포트폴리오 프로젝트</label>
+      <div id="portfolioList">
+        {% if not is_new and member and member.portfolio %}
+          {% for p in member.portfolio %}
+            {% set _clean = (p.period or '').replace(' ', '').replace('-', '–') %}
+            {% set _sep = _clean.find('–') %}
+            {% set _start = (_clean[:_sep] if _sep != -1 else _clean) %}
+            {% set _end   = (_clean[_sep+1:] if _sep != -1 else '') %}
+            {% set _start_m = (_start|replace('.', '-')) %}
+            {% set _end_m   = (_end|replace('.', '-')) %}
+            <div class="portfolio-row">
+              <div class="field-line"><input type="text" name="project_title[]" value="{{ p.project_title }}" placeholder="프로젝트명"></div>
+              <div class="period-line">
+                <input type="month" name="start_month[]" value="{{ _start_m[:7] }}"><span class="dash">–</span>
+                <input type="month" name="end_month[]" value="{{ _end_m[:7] }}">
+              </div>
+              <div class="field-line"><input type="text" name="proj_role[]" value="{{ p.role }}" placeholder="역할"></div>
+              <div class="field-line"><input type="text" name="description[]" value="{{ p.description }}" placeholder="설명"></div>
+              <input type="hidden" name="period[]" value="{{ p.period }}">
+              <div class="row-actions"><button type="button" class="btn-mini danger" onclick="this.closest('.portfolio-row').remove()">삭제</button></div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="portfolio-row">
+            <div class="field-line"><input type="text" name="project_title[]" placeholder="프로젝트명"></div>
+            <div class="period-line">
+              <input type="month" name="start_month[]"><span class="dash">–</span>
+              <input type="month" name="end_month[]">
+            </div>
+            <div class="field-line"><input type="text" name="proj_role[]" placeholder="역할"></div>
+            <div class="field-line"><input type="text" name="description[]" placeholder="설명"></div>
+            <input type="hidden" name="period[]" value="">
+            <div class="row-actions"><button type="button" class="btn-mini danger" onclick="this.closest('.portfolio-row').remove()">삭제</button></div>
+          </div>
+        {% endif %}
+      </div>
+      <button type="button" class="btn-mini" onclick="addPortfolioRow()">+ 프로젝트 추가</button>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">{{ '등록' if is_new else '완료' }}</button>
+      <button type="button" class="btn" onclick="history.back()">뒤로가기</button>
+      {% if not is_new and member %}
+      <button
+        type="submit"
+        class="btn btn-danger"
+        formmethod="POST"
+        formaction="{{ url_for('delete_member') }}"
+        onclick="return confirm('정말 삭제할까요? 이 작업은 되돌릴 수 없습니다.');"
+      >
+        삭제
+      </button>
+      {% endif %}
+    </div>
+  </form>
+
+  <script>
+    function addRow(containerId, fieldName){const box=document.getElementById(containerId);const row=document.createElement('div');row.className='row';row.innerHTML=`<input type="text" name="${fieldName}" /><button type="button" class="btn-mini" onclick="this.parentNode.remove()">삭제</button>`;box.appendChild(row);}
+    function ymToDot(ym){if(!ym)return'';const [y,m]=ym.split('-');if(!y||!m)return'';return `${y}.${m.padStart(2,'0')}`;}
+    function bakePeriodsBeforeSubmit(form){form.querySelectorAll('.portfolio-row').forEach(row=>{const s=row.querySelector('input[name="start_month[]"]')?.value||'';const e=row.querySelector('input[name="end_month[]"]')?.value||'';const h=row.querySelector('input[name="period[]"]');const S=ymToDot(s),E=ymToDot(e);h.value=(S&&E)?`${S}–${E}`:(S||E);});}
+    function addPortfolioRow(){const box=document.getElementById('portfolioList');const row=document.createElement('div');row.className='portfolio-row';row.innerHTML=`<div class="field-line"><input type="text" name="project_title[]" placeholder="프로젝트명"></div><div class="period-line"><input type="month" name="start_month[]"><span class="dash">–</span><input type="month" name="end_month[]"></div><div class="field-line"><input type="text" name="proj_role[]" placeholder="역할"></div><div class="field-line"><input type="text" name="description[]" placeholder="설명"></div><input type="hidden" name="period[]" value=""><div class="row-actions"><button type="button" class="btn-mini danger" onclick="this.closest('.portfolio-row').remove()">삭제</button></div>`;box.appendChild(row);}
+    document.addEventListener('DOMContentLoaded',()=>{const form=document.querySelector('form[action="{{ url_for('update_member') }}"]');if(!form)return;form.addEventListener('submit',()=>bakePeriodsBeforeSubmit(form));});
+  </script>
+</section>
+{% endblock %}

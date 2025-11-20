@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <!-- ✅ 상단 네비게이션 -->
+  <nav class="navbar">
+    <div class="logo">open4u</div>
+
+    <ul class="nav-links">
+      <!-- 소리 버튼 -->
+      <li>
+        <img
+          src="{{ url_for('static', filename='icons/sound_on.png') }}"
+          id="soundToggle"
+          class="sound-toggle"
+          alt="Sound On"
+        />
+      </li>
+
+      <li class="divider">|</li>
+      <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Team</a></li>
+      <li class="divider">|</li>
+      <li>
+        <a href="{{ url_for('result') }}"
+          class="{% if '/member' in request.path or '/result' in request.path %}active{% endif %}">
+          Member
+        </a>
+      </li>
+      <li class="divider">|</li>
+      <li><a href="/input" class="{% if request.path == '/input' %}active{% endif %}">Input</a></li>
+      <li class="divider">|</li>
+      <li><a href="/contact" class="{% if request.path == '/contact' %}active{% endif %}">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ✅ 본문 영역 -->
+  {% block content %}{% endblock %}
+
+  <!-- ✅ 배경음 -->
+  <audio id="bgm" src="{{ url_for('static', filename='audio/bgm.mp3') }}" autoplay loop></audio>
+
+  <!-- ✅ 소리 토글 스크립트 -->
+  <script>
+    const soundToggle = document.getElementById("soundToggle");
+    const bgm = document.getElementById("bgm");
+    let isMuted = false;
+
+    soundToggle.addEventListener("click", () => {
+      isMuted = !isMuted;
+      bgm.muted = isMuted;
+      soundToggle.src = isMuted
+        ? "{{ url_for('static', filename='icons/sound_off.png') }}"
+        : "{{ url_for('static', filename='icons/sound_on.png') }}";
+    });
+  </script>
+
+</body>
+</html>
